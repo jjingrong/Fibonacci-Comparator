@@ -21,22 +21,41 @@ def memoFib(n):
     else:
         memoCache[n] = n if n < 2 else memoFib(n-2) + memoFib(n-1)
         return memoCache[n]
+
+def bottomUpFib(n):
+   partialAns = [0,1]
+   for i in range(2,n+1):
+      partialAns.append(partialAns[i-1] + partialAns[i-2])
+   return partialAns[n]
 		
 def driverFib(n):
-	for i in range(0,n+1):
-		print("number: %s" % i)
-		# O(1)
-		start_time = time.time()
-		qf = (int)(quickFib(i))
-		print("Fast Fib: %s seconds" % (time.time() - start_time))
-		# Exponential time
-		start_time = time.time()
-		nf = (int)(normalFib(i))
-		print("Normal Fib: %s seconds" % (time.time() - start_time))
-		# memoizd
-		start_time = time.time()
-		mf = (int)(memoFib(i))
-		print("Memoized Fib: %s seconds" % (time.time() - start_time))
+	print("Number: %s" % n)
+	# O(1)
+	start_time = time.time()
+	qf = (int)(quickFib(n))
+	print("Golden Ratio Fib Output: %s" % qf)
+	print("Golden Ratio Fib: %s seconds" % (time.time() - start_time))
+	# memoizd
+	start_time = time.time()
+	mf = (int)(memoFib(n))
+	print("Memoized Fib Output: %s" % mf)
+	print("Memoized Fib: %s seconds" % (time.time() - start_time))
+	# Bottom Up
+	start_time = time.time()
+	buf = (int)(bottomUpFib(n))
+	print("Bottom Up Fib Output: %s" % buf)
+	print("Bottom Up DP Fib: %s seconds" % (time.time() - start_time))
+	
+	# Exponential time ( Normal algorithm)
+	start_time = time.time()
+	nf = (int)(normalFib(n))
+	print("Normal Fib Output: %s" % nf)
+	print("Normal Fib: %s seconds" % (time.time() - start_time))
+
+	if (buf==mf==qf==nf):
+		print("They are equal!")
+	else:
+		print("Answer are unequal!")
 
 
 userInput = (sys.argv[1])
